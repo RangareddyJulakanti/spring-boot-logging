@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/iweinzierl/spring-boot-logging.svg?branch=master)](https://travis-ci.org/iweinzierl/spring-boot-logging)
+
 # spring-boot-logging
 Library to ease logging for spring-boot applications.
 
