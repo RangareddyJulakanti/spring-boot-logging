@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentMap;
 @Component
 public class MethodCache {
 
-    private final ConcurrentMap<Method, MethodLoggingDescriptor> cache = new ConcurrentHashMap<>();
+    private ConcurrentMap<Method, MethodLoggingDescriptor> cache = new ConcurrentHashMap<>();
 
     public boolean isMethodInvocationLoggingEnabled(Method method) {
         MethodLoggingDescriptor descriptor = getMethodLoggingDescriptor(method);
@@ -29,10 +29,19 @@ public class MethodCache {
     private MethodLoggingDescriptor getMethodLoggingDescriptor(Method method) {
         MethodLoggingDescriptor methodLoggingDescriptor = cache.get(method);
         if (methodLoggingDescriptor == null) {
-            methodLoggingDescriptor = new MethodLoggingDescriptor(method);
-            cache.put(method, methodLoggingDescriptor);
+            methodLoggingDescriptor = createMethodLoggingDescriptor(method);
         }
 
         return methodLoggingDescriptor;
+    }
+
+    private MethodLoggingDescriptor createMethodLoggingDescriptor(Method method) {
+        MethodLoggingDescriptor methodLoggingDescriptor = new MethodLoggingDescriptor(method);
+        addToCache(method, methodLoggingDescriptor);
+        return methodLoggingDescriptor;
+    }
+
+    private void addToCache(Method method, MethodLoggingDescriptor methodLoggingDescriptor) {
+        cache.put(method, methodLoggingDescriptor);
     }
 }
