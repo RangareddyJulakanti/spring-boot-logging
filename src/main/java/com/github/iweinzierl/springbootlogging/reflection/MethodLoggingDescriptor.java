@@ -12,12 +12,16 @@ public class MethodLoggingDescriptor {
     private boolean methodInvocationLogginEnbabled;
     private boolean methodInvocationResultLoggingEnabled;
     private boolean methodRuntimeLoggingEnabled;
+    private boolean httpRequestLoggingEnabled;
+    private boolean httpResponseLoggingEnabled;
 
     public MethodLoggingDescriptor(Method method) {
         this.method = method;
         this.methodInvocationLogginEnbabled = false;
         this.methodInvocationResultLoggingEnabled = false;
         this.methodRuntimeLoggingEnabled = false;
+        this.httpRequestLoggingEnabled = false;
+        this.httpResponseLoggingEnabled = false;
         parseLoggingOptions();
     }
 
@@ -36,6 +40,10 @@ public class MethodLoggingDescriptor {
                 this.methodInvocationResultLoggingEnabled = true;
             } else if (option == LoggingOption.METHOD_RUNTIME) {
                 this.methodRuntimeLoggingEnabled = true;
+            } else if (option == LoggingOption.REQUEST) {
+                this.httpRequestLoggingEnabled = true;
+            } else if (option == LoggingOption.RESPONSE) {
+                this.httpResponseLoggingEnabled = true;
             }
         }
     }
@@ -54,5 +62,13 @@ public class MethodLoggingDescriptor {
 
     public boolean isMethodRuntimeLoggingEnabled() {
         return methodRuntimeLoggingEnabled;
+    }
+
+    public boolean isHttpRequestLoggingEnabled() {
+        return httpRequestLoggingEnabled;
+    }
+
+    public boolean isHttpResponseLoggingEnabled() {
+        return httpResponseLoggingEnabled;
     }
 }
